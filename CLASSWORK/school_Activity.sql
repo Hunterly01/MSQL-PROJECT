@@ -81,9 +81,9 @@ where SKU_Description like '%Climb%';
 -- 2.33
 select distinct SKU, SKU_Description 
 from INVENTORY
-where 
+where substring( SKU_Description, 3, 1) = 'd';
 
-
+-- 2.34
 
 
 
