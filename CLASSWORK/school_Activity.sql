@@ -84,6 +84,104 @@ from INVENTORY
 where substring( SKU_Description, 3, 1) = 'd';
 
 -- 2.34
+select
+	sum(QuantityOnHand) as TotalQuantity,
+    count(QuantityOnHand) as TotalNumber,
+    avg(QuantityOnHand) as AvgQuantity,
+    min(QuantityOnHand) as MinQuantity,
+    max(QuantityOnHand) as MaxQuantity    
+from INVENTORY;
+
+
+
+-- 2.37
+select WarehouseID, sum(QuantityOnHand) as TotalItemsOnHandLT3 
+from INVENTORY
+where QuantityOnHand < 3
+group by WarehouseID
+order by TotalItemsOnHandLT3 desc;
+
+-- 2.38
+select WarehouseID, sum(QuantityOnHand) as TotalItemsOnHandLT3 
+from INVENTORY
+where QuantityOnHand < 3
+group by WarehouseID
+having count(SKU) < 2
+order by TotalItemsOnHandLT3 desc;
+
+
+select SKU, SKU_Description, sum(QuantityOnHand) as newTotal 
+from INVENTORY
+group by SKU, SKU_Description;
+
+select *
+from INVENTORY as i, WAREHOUSE as w
+where i.WarehouseID = w.WarehouseID;
+
+select *
+from INVENTORY as i join WAREHOUSE as w
+where i.WarehouseID = w.WarehouseID;
+
+select *
+from WAREHOUSE as w left join INVENTORY as i
+on i.WarehouseID = w.WarehouseID;
+
+select *
+from INVENTORY
+where WarehouseID in (100, 200, 300);
+
+
+-- 2.40
+select SKU, SKU_Description, inventory.WarehouseID, Warehouse.WarehouseID WarehouseCity, WarehouseState
+from INVENTORY
+join Warehouse on Inventory.WarehouseID = Warehouse.WarehouseID
+where WarehouseCity = 'Atlanta' or WarehouseCity = 'Bangor' or WarehouseCity = 'Chicago';
+
+-- 2.41
+select SKU, SKU_Description, inventory.WarehouseID, Warehouse.WarehouseID WarehouseCity, WarehouseState
+from INVENTORY
+join Warehouse on Inventory.WarehouseID = Warehouse.WarehouseID
+where  WarehouseCity in('Atlanta'or 'Bangor'or 'Chicago');
+
+-- 2.42
+Select I.SKU, I.SKU_Description, W.WarehouseID, W.WarehouseCity, W.WarehouseState
+From Inventory Join Warehouse W on I.WarehouseID = W.WarehouseID
+where W.WarehouseCity <> 'Atlanta' and W.WarehouseCity <> 'Bangor'and W.WarehouseCity <> 'Chicago';
+
+-- 2.43
+select I.SKU, I.SKU_Description, W.WarehouseID, W.WarehouseCity, W.WarehouseState
+from Inventory I join Warehouse W
+on I.WarehouseID = W.WarehouseID
+where W.WarehouseCity not in ('Atlanta', 'Bangor', 'Chicago');
+
+-- 2.44
+
+
+-- 2.45
+select SKU, SKU_Description, WarehouseID
+From Inventory
+Where WarehouseID in (
+    select WarehouseID
+    from Warehouse
+    where Manager = 'Lucille Smith'
+);
+
+-- 2.46
+select I.SKU, I.SKU_Description, I.WarehouseID
+from Inventory I, Warehouse W
+where  I.WarehouseID = W.WarehouseID
+ and W.Manager = 'Lucille Smith';
+
+-- 2.47
+select I.SKU, I.SKU_Description, I.WarehouseID
+from Inventory as I join Warehouse as W
+    on I.WarehouseID = W.WarehouseID 
+where W.Manager = 'Lucille Smith';
+
+-- 2.48
+
+
+
 
 
 
