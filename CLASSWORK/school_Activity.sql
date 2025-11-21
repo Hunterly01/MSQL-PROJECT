@@ -179,6 +179,31 @@ from Inventory as I join Warehouse as W
 where W.Manager = 'Lucille Smith';
 
 -- 2.48
+SELECT WarehouseID, avg(QuantityOnHand) as AvgQuantityOnHand
+from Inventory
+where WarehouseID IN (
+    select WarehouseID
+    from Warehouse
+    where Manager = 'Lucille Smith'
+)
+group by WarehouseID;
+
+-- 2.49
+select I.WarehouseID, AVG(I.QuantityOnHand) AS AvgQuantityOnHand
+from Inventory I, Warehouse W
+where I.WarehouseID = W.WarehouseID
+ and W.Manager = 'Lucille Smith'
+group by I.WarehouseID;
+
+-- 2.50
+SELECT I.WarehouseID, avg(I.QuantityOnHand) as AvgQuantityOnHand
+from Inventory as I
+join Warehouse as W
+    on I.WarehouseID = W.WarehouseID
+where W.Manager = 'Lucille Smith'
+group by I.WarehouseID;
+
+
 
 
 
